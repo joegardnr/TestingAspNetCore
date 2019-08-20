@@ -26,7 +26,6 @@ namespace Demo.WebMVC.Tests
             var response = await client.GetAsync($"address/{expectedAddress.Id}");
             var view = await response.Content.ReadAsStringAsync();
 
-
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);            
             Assert.Contains("<input type=\"hidden\" id=\"id\" name=\"id\" value=\"1\" />", view);

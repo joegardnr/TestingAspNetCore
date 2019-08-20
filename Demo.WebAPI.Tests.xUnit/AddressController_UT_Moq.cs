@@ -23,7 +23,7 @@ namespace Demo.WebAPI.Tests.xUnit
             var controller = new AddressController(repositoryMock.Object);
 
             // Act
-            var response = await controller.Get(1) as OkObjectResult;
+            var response = await controller.GetById(1) as OkObjectResult;
             var result = response.Value as Address;
 
             // Assert
@@ -52,7 +52,8 @@ namespace Demo.WebAPI.Tests.xUnit
         public async Task Put_Updates_Data()
         {
             // Arrange           
-            var updatedAddress = new Address();
+            var expectedLine3 = "Line 3 Put";
+            var updatedAddress = new Address() { Line3 = expectedLine3};
             var repositoryMock = new Mock<IAddressRepository>();
             repositoryMock.Setup(r => r.UpdateAddressAsync(addressModel.Id, updatedAddress)).ReturnsAsync(updatedAddress);
             var controller = new AddressController(repositoryMock.Object);            
@@ -64,6 +65,7 @@ namespace Demo.WebAPI.Tests.xUnit
             // Assert
             Assert.Same(updatedAddress, result);
             repositoryMock.Verify(r => r.UpdateAddressAsync(addressModel.Id, updatedAddress), Times.Once);
+            Assert.Equal(expectedLine3, updatedAddress.Line3);
         }
     }
 }

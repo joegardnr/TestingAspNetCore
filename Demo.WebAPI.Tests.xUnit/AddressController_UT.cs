@@ -18,7 +18,7 @@ namespace Demo.WebAPI.Tests.xUnit
             var controller = new AddressController(repositoryMock);
 
             // Act
-            var response = await controller.Get(1) as OkObjectResult;
+            var response = await controller.GetById(1) as OkObjectResult;
             var result = response.Value as Address;
 
             // Assert
@@ -29,7 +29,7 @@ namespace Demo.WebAPI.Tests.xUnit
         public async Task Post_Inserts_Data()
         {
             // Arrange   
-            var expectedAddress = new Address { Id = 1 };
+            var expectedAddress = new Address {};
             var repositoryMock = new MockAddressRepository();            
             var controller = new AddressController(repositoryMock);
 
@@ -46,19 +46,37 @@ namespace Demo.WebAPI.Tests.xUnit
         public async Task Put_Updates_Data()
         {
             // Arrange   
-            var expectedAddress = new Address { Id = 1 };
-            var updatedAddress = new Address();
+            var expectedId = 1;
+            var expectedAddress = new Address { Id = expectedId };
             var repositoryMock = new MockAddressRepository();
             var controller = new AddressController(repositoryMock);            
 
             // Act
-            var response = await controller.Put(expectedAddress.Id, updatedAddress) as OkObjectResult;
+            var response = await controller.Put(expectedAddress.Id, expectedAddress) as OkObjectResult;
             var result = response.Value as Address;
 
             // Assert
-            Assert.Same(updatedAddress, result);            
+            Assert.Same(expectedAddress, result);            
             Assert.Same(result, repositoryMock.UpdateAddressValue);
-            Assert.Equal(expectedAddress.Id, repositoryMock.UpdateAddressID);
+            Assert.Equal(expectedId, repositoryMock.UpdateAddressID);
+        }
+
+        [Fact]
+        public async Task Put_Updates_Line3_Correctly()
+        {
+            // Arrange   
+            var expectedLine3 = "Line 3 Put";
+            var expectedAddress = new Address {Line3=expectedLine3 };
+            var repositoryMock = new MockAddressRepository();
+            var controller = new AddressController(repositoryMock);            
+
+            // Act
+            var response = await controller.Put(0, expectedAddress) as OkObjectResult;
+            var result = response.Value as Address;
+
+            // Assert
+            Assert.Equal(expectedLine3, repositoryMock.UpdateAddressValue.Line3);
+            Assert.Equal(expectedLine3, result.Line3);
         }
     }
 

@@ -53,7 +53,7 @@ namespace Demo.WebAPI.Tests.Alba
         public async Task Put_Updates_Data()
         {
             // Arrange
-            var expectedAddress = new Address { Id = 1, Zip = "33333" };
+            var expectedAddress = new Address { Id = 1, Line3="L3 PUT IT", Zip = "33333" };
             using (var testObject = SystemUnderTest.ForStartup<Startup>())
             {
                 // Act
@@ -62,6 +62,7 @@ namespace Demo.WebAPI.Tests.Alba
                     .Receive<Address>();
 
                 // Assert
+                Assert.Equal(expectedAddress.Line3, actualAddress.Line3);
                 Assert.Equal(expectedAddress.Zip, actualAddress.Zip);
             }
         }

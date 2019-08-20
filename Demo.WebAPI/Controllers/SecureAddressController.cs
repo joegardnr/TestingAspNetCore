@@ -20,7 +20,7 @@ namespace Demo.WebAPI.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var address = await _addressRepo.GetAddressAsync(id);
             return Ok(address);
@@ -30,13 +30,13 @@ namespace Demo.WebAPI.Controllers
         public async Task<IActionResult> Post([FromBody] Address address)
         {
             var result = await _addressRepo.InsertAddressAsync(address);
-            return CreatedAtAction(actionName: nameof(Get), routeValues: new { id = result.Id }, result);
+            return CreatedAtAction(actionName: nameof(GetById), routeValues: new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Address address)
         {
-            address.Line3 = string.Empty; // This is a bug
+            //address.Line3 = string.Empty; // This is a bug
             var result = await _addressRepo.UpdateAddressAsync(id, address);
             return Ok(result);
         }
