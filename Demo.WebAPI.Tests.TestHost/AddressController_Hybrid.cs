@@ -68,7 +68,7 @@ namespace Demo.WebAPI.Tests.TestHost
         public async Task Put_Updates_Data()
         {
             // Arrange
-            var expectedAddress = new Address { Id = 1, Line3="L3 PUT", Zip = "33333" };
+            var expectedAddress = new Address { Id = 1, Line2="L3 PUT", Zip = "33333" };
             var repositoryMock = new MockAddressRepository();
             var webHost = new WebHostBuilder()
                 .UseStartup<Demo.WebAPI.Startup>()
@@ -86,7 +86,7 @@ namespace Demo.WebAPI.Tests.TestHost
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(expectedAddress.Zip, actualAddress.Zip);
-            Assert.Equal(expectedAddress.Line3, repositoryMock.UpdateAddressValue.Line3);
+            Assert.Equal(expectedAddress.Line2, repositoryMock.UpdateAddressValue.Line2);
             Assert.Equal(expectedAddress.Id, repositoryMock.UpdateAddressID);            
         }
     }

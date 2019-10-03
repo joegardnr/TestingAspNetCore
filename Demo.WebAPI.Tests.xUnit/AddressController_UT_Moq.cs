@@ -52,8 +52,8 @@ namespace Demo.WebAPI.Tests.xUnit
         public async Task Put_Updates_Data()
         {
             // Arrange           
-            var expectedLine3 = "Line 3 Put";
-            var updatedAddress = new Address() { Line3 = expectedLine3};
+            var expectedLine2 = "Line 2 Put";
+            var updatedAddress = new Address() { Line2 = expectedLine2};
             var repositoryMock = new Mock<IAddressRepository>();
             repositoryMock.Setup(r => r.UpdateAddressAsync(addressModel.Id, updatedAddress)).ReturnsAsync(updatedAddress);
             var controller = new AddressController(repositoryMock.Object);            
@@ -65,7 +65,7 @@ namespace Demo.WebAPI.Tests.xUnit
             // Assert
             Assert.Same(updatedAddress, result);
             repositoryMock.Verify(r => r.UpdateAddressAsync(addressModel.Id, updatedAddress), Times.Once);
-            Assert.Equal(expectedLine3, updatedAddress.Line3);
+            Assert.Equal(expectedLine2, updatedAddress.Line2);
         }
     }
 }

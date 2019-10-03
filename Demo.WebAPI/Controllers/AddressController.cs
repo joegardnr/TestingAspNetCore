@@ -34,7 +34,7 @@ namespace Demo.WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Address address)
         {
-            //address.Line3 = string.Empty; // this is a bug
+            //address.Line2 = string.Empty; // this is a bug
             var result = await _addressRepo.UpdateAddressAsync(id, address);
             return Ok(result);
         }

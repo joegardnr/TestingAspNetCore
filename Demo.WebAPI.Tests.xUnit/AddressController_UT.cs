@@ -62,11 +62,11 @@ namespace Demo.WebAPI.Tests.xUnit
         }
 
         [Fact]
-        public async Task Put_Updates_Line3_Correctly()
+        public async Task Put_Updates_Line2_Correctly()
         {
             // Arrange   
-            var expectedLine3 = "Line 3 Put";
-            var expectedAddress = new Address {Line3=expectedLine3 };
+            var expectedLine2 = "Line 2 Put";
+            var expectedAddress = new Address {Line2=expectedLine2 };
             var repositoryMock = new MockAddressRepository();
             var controller = new AddressController(repositoryMock);            
 
@@ -75,8 +75,8 @@ namespace Demo.WebAPI.Tests.xUnit
             var result = response.Value as Address;
 
             // Assert
-            Assert.Equal(expectedLine3, repositoryMock.UpdateAddressValue.Line3);
-            Assert.Equal(expectedLine3, result.Line3);
+            Assert.Equal(expectedLine2, repositoryMock.UpdateAddressValue.Line2);
+            Assert.Equal(expectedLine2, result.Line2);
         }
     }
 

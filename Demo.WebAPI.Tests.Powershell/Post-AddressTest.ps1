@@ -3,7 +3,6 @@ $baseUri = "http://localhost:5000/api/address"
 $address = @{
     line1="Another Line 1";
     line2="More Line 2";
-    line3="And Line 3";
     city="Some City";
     state="ST";
     zip="12345"; 

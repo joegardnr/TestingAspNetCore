@@ -39,7 +39,7 @@ namespace Demo.WebMVC.Controllers
             }
             else
             {
-                //address.Line3 = string.Empty; // this is a bug
+                //address.Line2 = string.Empty; // this is a bug
                 result = await _addressRepo.UpdateAddressAsync(address.Id, address);                
             }
             return Redirect($"/address/{result.Id}");
