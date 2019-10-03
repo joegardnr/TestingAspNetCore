@@ -28,7 +28,7 @@ namespace Demo.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
             services.AddSingleton<IAddressRepository, AddressRepositoryInMemory>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -47,22 +47,22 @@ namespace Demo.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {            
+            app.UseRouting();
             app.Use(async (context, next) =>
             {
                 Console.WriteLine("Middleware!");
                 await next.Invoke();                
             });
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseAuthorization();
 
-            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
         }
     }
 }
