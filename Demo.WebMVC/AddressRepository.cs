@@ -42,7 +42,7 @@ namespace Demo.WebMVC
 
         public Task<Address> InsertAddressAsync(Address address)
         {
-            var maxId = _addressDB.Max(r => r.Id);  // This is not very thread safe. 
+            var maxId = _addressDB.Any() ? _addressDB.Max(r => r.Id) : 0;  // This is not very thread safe.  
             address.Id = maxId + 1;
             _addressDB.Add(address);
             return Task.FromResult(address);

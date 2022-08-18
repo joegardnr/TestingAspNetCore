@@ -1,5 +1,6 @@
 using Demo.WebMVC.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using System.Net;
 using System.Net.Http;
@@ -18,9 +19,8 @@ namespace Demo.WebMVC.Tests
         {
             // Arrange
             var expectedAddress = new Address { Id = 1, Zip = "90210" };
-            var webHost = new WebHostBuilder().UseStartup<Demo.WebMVC.Startup>();
-            var server = new TestServer(webHost);
-            var client = server.CreateClient();
+            var webHost = new WebApplicationFactory<Program>();
+            var client = webHost.CreateClient();
 
             // Act
             var response = await client.GetAsync($"address/{expectedAddress.Id}");
